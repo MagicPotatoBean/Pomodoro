@@ -7,6 +7,10 @@ To use it, call it as follows
 
 You can have as many `<Time> <Label>` pairs as you want, but each time must be followed by a label.
 
+For multi-word labels, use quote marks:
+
+`$ cargo run -- 25 "Work on A" 5 Break 25 "Work on B" 5 Break`
+
 `<Time>` can be in the format:
 
 - `#s` for # seconds
@@ -35,3 +39,12 @@ You can have as many `<Time> <Label>` pairs as you want, but each time must be f
 
 `$ ./pomodoro 25 Work 5 Break`
 
+# Known problems
+## Currently working on
+
+- Messages longer than 13 chars overrun the progress bar
+- Times requiring more than 2 chars per section overrun the progress bar( i.e. 105:00)
+
+## Not working on
+
+- No validation for time lengths(i.e. negative duration)
