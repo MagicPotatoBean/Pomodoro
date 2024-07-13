@@ -79,7 +79,6 @@ fn run(duration: Duration, message: &str) {
 }
 fn print_ui(total_time: Duration, current_time: Duration, message: &str) {
     assert!(current_time.le(&total_time));
-    let chars_visible = current_time.div_duration_f64(total_time).mul(13_f64);
     let total_time_chrono = chrono::Duration::from_std(total_time).unwrap();
     let current_time_chrono = chrono::Duration::from_std(current_time).unwrap();
     let time_str = format!(
@@ -89,9 +88,16 @@ fn print_ui(total_time: Duration, current_time: Duration, message: &str) {
         total_time_chrono.num_minutes(),
         total_time_chrono.num_seconds() - total_time_chrono.num_minutes() * 60
     );
-    println!("{time_str}");
+    let line_len = time_str.len().max(message.len());
+    let chars_visible = current_time
+        .div_duration_f64(total_time)
+        .mul(line_len as f64);
+    println!(
+        "{}{time_str}",
+        " ".repeat((line_len - time_str.len()).div(2))
+    );
     print!("{}", message);
-    println!("{}", " ".repeat(13 - message.len()));
+    println!("{}", " ".repeat(line_len - message.len()));
     let mut progress_bar = "█".repeat(chars_visible.floor() as usize);
     let remainder = chars_visible - (chars_visible.floor());
     if remainder > 0.875 {
@@ -111,6 +117,6 @@ fn print_ui(total_time: Duration, current_time: Duration, message: &str) {
     } else if remainder > 0.0 {
         progress_bar.push('▏')
     }
-    progress_bar.push_str(&" ".repeat(13 - progress_bar.chars().count()));
+    progress_bar.push_str(&" ".repeat(line_len - progress_bar.chars().count()));
     println!("{progress_bar}");
 }

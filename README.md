@@ -42,9 +42,6 @@ For multi-word labels, use quote marks:
 # Known problems
 ## Currently working on
 
-- Messages longer than 13 chars overrun the progress bar
-- Times requiring more than 2 chars per section overrun the progress bar( i.e. 105:00)
+- No validation for time lengths(i.e. negative duration)
 
 ## Not working on
-
-- No validation for time lengths(i.e. negative duration)
