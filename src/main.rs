@@ -96,7 +96,7 @@ fn print_ui(total_time: Duration, current_time: Duration, message: &str) {
         "{}{time_str}",
         " ".repeat((line_len - time_str.len()).div(2))
     );
-    print!("{}", message);
+    print!("{}{message}", " ".repeat((line_len - message.len()).div(2)));
     println!("{}", " ".repeat(line_len - message.len()));
     let mut progress_bar = "█".repeat(chars_visible.floor() as usize);
     let remainder = chars_visible - (chars_visible.floor());
